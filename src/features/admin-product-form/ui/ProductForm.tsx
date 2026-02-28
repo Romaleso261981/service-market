@@ -11,6 +11,8 @@ export type ProductSubmitData = Omit<ProductFormData, 'characteristicsText' | 'd
   description?: string;
   characteristics?: Record<string, string>;
   categoryId?: string;
+  image?: string;
+  images?: string[];
 };
 
 export interface ProductFormProps {
@@ -28,9 +30,9 @@ export interface ProductFormData {
   currency: string;
   inStock: boolean;
   deliveryDays: string;
-  image: string;
+  /** Список URL фото */
+  images: string[];
   description: string;
-  /** Один рядок = "Назва: значення", наприклад "Производитель: Bosch" */
   characteristicsText: string;
 }
 
@@ -43,7 +45,7 @@ const defaultData: ProductFormData = {
   currency: 'грн',
   inStock: true,
   deliveryDays: '',
-  image: '',
+  images: [],
   description: '',
   characteristicsText: '',
 };
@@ -91,7 +93,8 @@ export function ProductForm({
           currency: initial.currency,
           inStock: initial.inStock,
           deliveryDays: initial.deliveryDays ?? '',
-          image: initial.image ?? '',
+          images:
+            initial.images?.length ? [...initial.images] : initial.image ? [initial.image] : [],
           description: initial.description ?? '',
           characteristicsText: formatCharacteristics(initial.characteristics),
         }
@@ -101,6 +104,7 @@ export function ProductForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const characteristics = parseCharacteristics(data.characteristicsText);
+    const imageList = data.images.filter((u) => u.trim());
     const payload: ProductSubmitData = {
       code: data.code,
       name: data.name,
@@ -110,7 +114,8 @@ export function ProductForm({
       currency: data.currency,
       inStock: data.inStock,
       deliveryDays: data.deliveryDays,
-      image: data.image,
+      images: imageList,
+      image: imageList[0],
       description: data.description || undefined,
       characteristics: Object.keys(characteristics).length > 0 ? characteristics : undefined,
     };
@@ -213,14 +218,42 @@ export function ProductForm({
       </div>
       <div>
         <label className="mb-1 block text-sm font-medium text-gray-700">
-          URL зображення
+          Фото (URL)
         </label>
-        <Input
-          type="url"
-          value={data.image}
-          onChange={(e) => update('image', e.target.value)}
-          placeholder="https://..."
-        />
+        <div className="space-y-2">
+          {(data.images.length ? data.images : ['']).map((url, i) => (
+            <div key={i} className="flex gap-2">
+              <Input
+                type="url"
+                value={url}
+                onChange={(e) => {
+                  const next = [...(data.images.length ? data.images : [''])];
+                  next[i] = e.target.value;
+                  setData((prev) => ({ ...prev, images: next }));
+                }}
+                placeholder="https://..."
+                className="flex-1"
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  const next = (data.images.length ? data.images : ['']).filter((_, idx) => idx !== i);
+                  setData((prev) => ({ ...prev, images: next }));
+                }}
+                className="shrink-0 rounded border border-gray-300 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50"
+              >
+                Видалити
+              </button>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() => setData((prev) => ({ ...prev, images: [...(prev.images.length ? prev.images : []), ''] }))}
+            className="rounded border border-dashed border-gray-300 px-3 py-2 text-sm text-gray-600 hover:bg-gray-50"
+          >
+            + Додати фото
+          </button>
+        </div>
       </div>
       <div>
         <label className="mb-1 block text-sm font-medium text-gray-700">

@@ -27,7 +27,12 @@
       "Тип": "труба всасывания"
     },
     "categoryId": "big",
-    "image": "https://www.service-market.com.ua/storage/products/5fd08d13-4095-11ec-9166-bd898ab255dd/600x600/aeb989756451bfd9dd0f4f41f84f3faa_photo_0.webp"
+    "image": "https://www.service-market.com.ua/storage/products/5fd08d13-4095-11ec-9166-bd898ab255dd/600x600/aeb989756451bfd9dd0f4f41f84f3faa_photo_0.webp",
+    "images": [
+      "https://www.service-market.com.ua/storage/products/5fd08d13-4095-11ec-9166-bd898ab255dd/600x600/aeb989756451bfd9dd0f4f41f84f3faa_photo_0.webp",
+      "https://www.service-market.com.ua/storage/products/5fd08d13-4095-11ec-9166-bd898ab255dd/600x600/aeb989756451bfd9dd0f4f41f84f3faa_photo_0.webp",
+      "https://www.service-market.com.ua/storage/products/5fd08d13-4095-11ec-9166-bd898ab255dd/600x600/aeb989756451bfd9dd0f4f41f84f3faa_photo_0.webp"
+    ]
   },
   {
     "id": "3",
@@ -95,6 +100,12 @@
       "Высота": "31мм.",
       "Покрытие": "эмаль."
     },
-    "id": "1772314294943"
+    "id": "1772314294943",
+    "images": [
+      "https://www.service-market.com.ua/storage/products/fea8b141-e136-11ee-9181-80871382a8b2/600x600/2c87cd812e140a2adbd449835884d1a7_photo_0.webp",
+      "https://www.service-market.com.ua/storage/products/fea8b141-e136-11ee-9181-80871382a8b2/600x600/2c87cd812e140a2adbd449835884d1a7_photo_3.webp",
+      "https://www.service-market.com.ua/storage/products/fea8b141-e136-11ee-9181-80871382a8b2/600x600/2c87cd812e140a2adbd449835884d1a7_photo_2.webp",
+      "https://www.service-market.com.ua/storage/products/fea8b141-e136-11ee-9181-80871382a8b2/600x600/2c87cd812e140a2adbd449835884d1a7_photo_1.webp"
+    ]
   }
 ]

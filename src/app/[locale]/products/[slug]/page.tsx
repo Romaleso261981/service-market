@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -7,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { HeaderWithCart } from '@/widgets/Header';
 import { Footer } from '@/widgets/Footer';
 import { Button } from '@/shared/ui';
-import { ProductCharacteristics } from '@/entities/product';
+import { ProductCharacteristics, getProductImages } from '@/entities/product';
 import { useProducts } from '@/app/providers/ProductsProvider';
 import { useCartContext } from '@/app/providers/CartProvider';
 import { useLocalePath } from '@/app/providers/LocaleProvider';
@@ -19,8 +20,10 @@ export default function ProductPage() {
   const { t } = useTranslation();
   const { products } = useProducts();
   const { addItem } = useCartContext();
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   const product = products.find((p) => p.slug === slug);
+  const images = product ? getProductImages(product) : [];
 
   if (!slug || !product) {
     return (
@@ -57,15 +60,41 @@ export default function ProductPage() {
           </Link>
           <div className="grid gap-8 md:grid-cols-2">
             <div className="rounded-xl border border-gray-200 bg-white p-4">
-              {product.image ? (
-                <div className="relative aspect-square">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
+              {images.length > 0 ? (
+                <div className="space-y-3">
+                  <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100">
+                    <Image
+                      src={images[selectedImageIndex] ?? images[0]}
+                      alt={product.name}
+                      fill
+                      className="object-contain"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                  {images.length > 1 && (
+                    <div className="flex gap-2 overflow-x-auto pb-1">
+                      {images.map((url, i) => (
+                        <button
+                          key={i}
+                          type="button"
+                          onClick={() => setSelectedImageIndex(i)}
+                          className={`relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border-2 bg-gray-100 ${
+                            selectedImageIndex === i
+                              ? 'border-primary'
+                              : 'border-transparent hover:border-gray-300'
+                          }`}
+                        >
+                          <Image
+                            src={url}
+                            alt=""
+                            fill
+                            className="object-contain"
+                            sizes="64px"
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div className="flex aspect-square items-center justify-center rounded-lg bg-gray-100 text-gray-400">

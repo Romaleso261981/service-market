@@ -19,6 +19,7 @@ export default function NewProductPage() {
         inStock: data.inStock,
         deliveryDays: data.deliveryDays || undefined,
         image: data.image || undefined,
+        images: data.images,
         description: data.description,
         characteristics: data.characteristics,
       });
