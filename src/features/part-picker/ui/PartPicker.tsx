@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Input } from '@/shared/ui';
-import { siteConfig } from '@/shared/config/site';
 
 export interface PartPickerProps {
   brands?: { id: string; name: string }[];
@@ -15,6 +15,7 @@ export function PartPicker({
   onFindPart,
   className,
 }: PartPickerProps) {
+  const { t } = useTranslation();
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
 
@@ -29,11 +30,11 @@ export function PartPicker({
   return (
     <form onSubmit={handleSubmit} className={className}>
       <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
-        <h3 className="mb-3 font-semibold text-gray-900">Подбор детали</h3>
+        <h3 className="mb-3 font-semibold text-gray-900">{t('partPicker.title')}</h3>
         <div className="space-y-3">
           <div>
             <label className="mb-1 block text-sm text-gray-600">
-              {siteConfig.partPicker.brandPlaceholder}
+              {t('partPicker.brandPlaceholder')}
             </label>
             {brands.length > 0 ? (
               <select
@@ -41,7 +42,7 @@ export function PartPicker({
                 onChange={(e) => setBrand(e.target.value)}
                 className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
               >
-                <option value="">{siteConfig.partPicker.brandPlaceholder}</option>
+                <option value="">{t('partPicker.brandPlaceholder')}</option>
                 {brands.map((b) => (
                   <option key={b.id} value={b.id}>
                     {b.name}
@@ -50,7 +51,7 @@ export function PartPicker({
               </select>
             ) : (
               <Input
-                placeholder="Бренд"
+                placeholder={t('partPicker.brand')}
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
               />
@@ -58,16 +59,16 @@ export function PartPicker({
           </div>
           <div>
             <label className="mb-1 block text-sm text-gray-600">
-              {siteConfig.partPicker.modelPlaceholder}
+              {t('partPicker.modelPlaceholder')}
             </label>
             <Input
-              placeholder="Модель"
+              placeholder={t('partPicker.model')}
               value={model}
               onChange={(e) => setModel(e.target.value)}
             />
           </div>
           <Button type="submit" variant="primary" className="w-full">
-            {siteConfig.partPicker.findPartLabel}
+            {t('partPicker.findPart')}
           </Button>
         </div>
       </div>

@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslation } from 'react-i18next';
 import { HeaderWithCart } from '@/widgets/Header';
 import { Footer } from '@/widgets/Footer';
 import { CatalogNav } from '@/widgets/CatalogNav';
@@ -10,6 +11,7 @@ import { mockProducts } from '@/shared/config/mock-products';
 import { useCartContext } from '@/app/providers/CartProvider';
 
 export function HomePage() {
+  const { t } = useTranslation();
   const { addItem } = useCartContext();
 
   const handleAddToCart = (productId: string) => {
@@ -40,19 +42,16 @@ export function HomePage() {
               </section>
               <section>
                 <h1 className="mb-4 text-2xl font-bold text-gray-900">
-                  «Сервис-Маркет» — новая жизнь вашей техники
+                  {t('home.title')}
                 </h1>
                 <p className="text-gray-600">
-                  Запчасти для бытовой техники: стиральные и посудомоечные машины,
-                  холодильники, бойлеры, вытяжки, пылесосы, мясорубки,
-                  микроволновки и многое другое. Более 50 тысяч наименований на
-                  складе.
+                  {t('home.intro')}
                 </p>
               </section>
               <TrustBadges />
               <section>
                 <h2 className="mb-4 text-xl font-semibold text-gray-900">
-                  Товары, которые часто ищут
+                  {t('home.productsTitle')}
                 </h2>
                 <ProductGrid
                   products={mockProducts}

@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslation } from 'react-i18next';
 import { ProductCard } from '@/entities/product';
 import type { ProductCardData } from '@/entities/product';
 
@@ -9,10 +10,12 @@ export interface ProductGridProps {
 }
 
 export function ProductGrid({ products, onAddToCart }: ProductGridProps) {
+  const { t } = useTranslation();
+
   if (products.length === 0) {
     return (
       <p className="py-12 text-center text-gray-500">
-        Ничего не найдено, попробуйте уточнить запрос
+        {t('search.empty')}
       </p>
     );
   }

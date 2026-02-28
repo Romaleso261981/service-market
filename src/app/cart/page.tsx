@@ -1,10 +1,12 @@
 'use client';
 
+import { useTranslation } from 'react-i18next';
 import { HeaderWithCart } from '@/widgets/Header';
 import { Footer } from '@/widgets/Footer';
 import { useCartContext } from '@/app/providers/CartProvider';
 
 export default function CartPage() {
+  const { t } = useTranslation();
   const { items, total, count } = useCartContext();
 
   return (
@@ -12,9 +14,9 @@ export default function CartPage() {
       <HeaderWithCart />
       <main className="flex-1 px-4 py-6 sm:px-6">
         <div className="mx-auto max-w-3xl">
-          <h1 className="mb-4 text-2xl font-bold">Корзина</h1>
+          <h1 className="mb-4 text-2xl font-bold">{t('header.cart')}</h1>
           {count === 0 ? (
-            <p className="text-gray-500">Ваша корзина пуста</p>
+            <p className="text-gray-500">{t('cart.empty')}</p>
           ) : (
             <>
               <ul className="space-y-3">
@@ -25,7 +27,7 @@ export default function CartPage() {
                   >
                     <div>
                       <p className="font-medium">{item.name}</p>
-                      <p className="text-sm text-gray-500">Код: {item.code}</p>
+                      <p className="text-sm text-gray-500">{t('product.code')}: {item.code}</p>
                     </div>
                     <div className="text-right">
                       <p className="font-semibold text-primary">
@@ -37,7 +39,7 @@ export default function CartPage() {
                 ))}
               </ul>
               <p className="mt-4 text-xl font-semibold">
-                Итого: {total} грн
+                {t('cart.total')}: {total} грн
               </p>
             </>
           )}

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/shared/ui';
 import type { ProductCardData } from '../../model/types';
 
@@ -11,6 +12,7 @@ export interface ProductCardProps {
 }
 
 export function ProductCard({ product, onAddToCart }: ProductCardProps) {
+  const { t } = useTranslation();
   const { id, code, name, slug, price, currency, image, inStock, deliveryDays } = product;
 
   return (
@@ -28,10 +30,10 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
           </div>
         ) : (
           <div className="aspect-square rounded-lg bg-gray-100 flex items-center justify-center text-gray-400 text-sm">
-            Нет фото
+            {t('product.noPhoto')}
           </div>
         )}
-        <p className="mt-2 text-xs text-gray-500">Код: {code}</p>
+        <p className="mt-2 text-xs text-gray-500">{t('product.code')}: {code}</p>
         <h3 className="mt-1 line-clamp-2 font-medium text-gray-900">{name}</h3>
         {deliveryDays && (
           <p className="mt-1 text-xs text-amber-600">{deliveryDays}</p>
@@ -49,7 +51,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
           onAddToCart?.(id);
         }}
       >
-        {inStock ? 'Купить' : 'Под заказ'}
+        {inStock ? t('product.buy') : t('product.onOrder')}
       </Button>
     </article>
   );

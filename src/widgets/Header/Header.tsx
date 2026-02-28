@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 import { CatalogSearch } from '@/features/search-catalog';
 import { AuthDropdown } from '@/features/auth-dropdown';
-import { siteConfig } from '@/shared/config/site';
+import { LanguageSwitcher } from '@/features/language-switcher';
 import { Button } from '@/shared/ui';
 
 export interface HeaderProps {
@@ -11,16 +12,21 @@ export interface HeaderProps {
 }
 
 export function Header({ cartCount = 0 }: HeaderProps) {
+  const { t } = useTranslation();
+
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white shadow-sm">
       <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <Link
-            href="/"
-            className="text-xl font-bold text-primary hover:text-primary-hover"
-          >
-            {siteConfig.name}
-          </Link>
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher />
+            <Link
+              href="/"
+              className="text-xl font-bold text-primary hover:text-primary-hover"
+            >
+              {t('site.name')}
+            </Link>
+          </div>
           <div className="flex-1 max-w-xl w-full">
             <CatalogSearch />
           </div>
@@ -28,7 +34,7 @@ export function Header({ cartCount = 0 }: HeaderProps) {
             <AuthDropdown />
             <Link href="/cart" className="relative">
               <Button variant="outline">
-                Корзина
+                {t('header.cart')}
                 {cartCount > 0 && (
                   <span className="ml-1 rounded-full bg-primary px-2 py-0.5 text-xs text-white">
                     {cartCount}
@@ -38,7 +44,7 @@ export function Header({ cartCount = 0 }: HeaderProps) {
             </Link>
           </div>
         </div>
-        <p className="mt-1 text-sm text-gray-500">{siteConfig.tagline}</p>
+        <p className="mt-1 text-sm text-gray-500">{t('site.tagline')}</p>
       </div>
     </header>
   );

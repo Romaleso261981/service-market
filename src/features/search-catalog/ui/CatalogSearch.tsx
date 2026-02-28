@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Input } from '@/shared/ui';
-import { siteConfig } from '@/shared/config/site';
 
 export interface CatalogSearchProps {
   defaultValue?: string;
@@ -15,6 +15,7 @@ export function CatalogSearch({
   onSearch,
   className,
 }: CatalogSearchProps) {
+  const { t } = useTranslation();
   const [query, setQuery] = useState(defaultValue);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -30,17 +31,17 @@ export function CatalogSearch({
       <div className="flex gap-2">
         <Input
           type="search"
-          placeholder={siteConfig.searchPlaceholder}
+          placeholder={t('header.searchPlaceholder')}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className="flex-1"
-          aria-label="Поиск по каталогу"
+          aria-label={t('search.title')}
         />
         <button
           type="submit"
           className="rounded-lg bg-primary px-4 py-2 font-medium text-white transition-colors hover:bg-primary-hover"
         >
-          Найти
+          {t('header.find')}
         </button>
       </div>
     </form>
