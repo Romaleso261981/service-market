@@ -1,34 +1,74 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/shared/lib/cn';
 import { Input } from '@/shared/ui';
 import { useLocalePath } from '@/app/providers/LocaleProvider';
 
+const DEBOUNCE_MS = 1000;
+
 export interface CatalogSearchProps {
+  /** Поточний пошуковий запит (наприклад з URL) */
   defaultValue?: string;
+  /** Викликається після дебаунсу (через 2 с після останнього введення) */
   onSearch?: (query: string) => void;
+  /** Якщо true, після дебаунсу виконується перехід на сторінку пошуку з query */
+  navigateOnDebounce?: boolean;
   className?: string;
-  /** Dark header: white rounded search bar with purple icon */
   variant?: 'default' | 'dark';
 }
 
 export function CatalogSearch({
   defaultValue = '',
   onSearch,
+  navigateOnDebounce = true,
   className,
   variant = 'default',
 }: CatalogSearchProps) {
   const { t } = useTranslation();
+  const router = useRouter();
   const localePath = useLocalePath();
   const [query, setQuery] = useState(defaultValue);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Синхронізувати з defaultValue (наприклад при переході на сторінку пошуку з ?text=)
+  useEffect(() => {
+    setQuery(defaultValue);
+  }, [defaultValue]);
+
+  // Дебаунс: через 2 с після останнього введення — запит/перехід (пропускаємо, якщо query вже збігається з URL)
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    const trimmed = query.trim();
+    if (!trimmed) {
+      debounceRef.current = null;
+      return;
+    }
+    const defaultTrimmed = defaultValue.trim();
+    if (trimmed === defaultTrimmed) {
+      debounceRef.current = null;
+      return;
+    }
+    debounceRef.current = setTimeout(() => {
+      debounceRef.current = null;
+      onSearch?.(trimmed);
+      if (navigateOnDebounce) {
+        router.push(localePath(`/shop/search?text=${encodeURIComponent(trimmed)}`));
+      }
+    }, DEBOUNCE_MS);
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, [query, defaultValue, onSearch, navigateOnDebounce, localePath, router]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSearch?.(query);
-    if (query.trim()) {
-      window.location.href = localePath(`/shop/search?text=${encodeURIComponent(query.trim())}`);
+    const trimmed = query.trim();
+    if (trimmed) {
+      onSearch?.(trimmed);
+      router.push(localePath(`/shop/search?text=${encodeURIComponent(trimmed)}`));
     }
   };
 
