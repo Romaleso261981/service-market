@@ -1,0 +1,1 @@
+export { CatalogNav } from './CatalogNav';

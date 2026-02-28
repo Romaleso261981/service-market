@@ -1,0 +1,60 @@
+import type { ProductCardData } from '@/entities/product';
+
+/** Mock products for demo (inspired by service-market.com.ua) */
+export const mockProducts: ProductCardData[] = [
+  {
+    id: '1',
+    code: '45388',
+    name: 'Замок люка (двери) для стиральной машины Whirlpool 481010602648 ROLD',
+    slug: 'zamok-lyuka-whirlpool-45388',
+    price: 345,
+    currency: 'грн',
+    inStock: false,
+    deliveryDays: 'Срок поставки 10-15 дней',
+  },
+  {
+    id: '2',
+    code: '42092',
+    name: 'Труба металл для аккум пылесоса Dyson 965663-05',
+    slug: 'truba-metall-dyson-42092',
+    price: 890,
+    currency: 'грн',
+    inStock: true,
+  },
+  {
+    id: '3',
+    code: '24946',
+    name: 'Помпа 30W конт. сбоку на 3 защёлки Electrolux 140180051033',
+    slug: 'pompa-electrolux-24946',
+    price: 1250,
+    currency: 'грн',
+    inStock: true,
+  },
+  {
+    id: '4',
+    code: '861203',
+    name: 'Муфта предохранительная для мясорубок Zelmer 00792328',
+    slug: 'mufta-zelmer-861203',
+    price: 156,
+    currency: 'грн',
+    inStock: true,
+  },
+  {
+    id: '5',
+    code: '40218',
+    name: 'Обрамление переднее стеклянной полки для холодильника Beko 4657600100',
+    slug: 'obramlenie-beko-40218',
+    price: 420,
+    currency: 'грн',
+    inStock: true,
+  },
+  {
+    id: '6',
+    code: '42150',
+    name: 'Слюда 11.8 x 54 см для микроволновой печи Whirlpool 482000032355',
+    slug: 'slyuda-whirlpool-42150',
+    price: 280,
+    currency: 'грн',
+    inStock: true,
+  },
+];
