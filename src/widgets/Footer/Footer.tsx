@@ -66,8 +66,11 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-8 border-t border-gray-200 pt-6 text-center text-sm text-gray-500">
-          {t('footer.copyright', { year: new Date().getFullYear(), name: t('site.name') })}
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-4 border-t border-gray-200 pt-6 text-center text-sm text-gray-500">
+          <span>{t('footer.copyright', { year: new Date().getFullYear(), name: t('site.name') })}</span>
+          <Link href="/admin" className="text-gray-400 hover:text-primary">
+            Адмін
+          </Link>
         </div>
       </div>
     </footer>

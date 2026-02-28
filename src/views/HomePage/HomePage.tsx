@@ -7,15 +7,16 @@ import { CatalogNav } from '@/widgets/CatalogNav';
 import { PartFinder } from '@/widgets/PartFinder';
 import { TrustBadges } from '@/widgets/TrustBadges';
 import { ProductGrid } from '@/widgets/ProductGrid';
-import { mockProducts } from '@/shared/config/mock-products';
 import { useCartContext } from '@/app/providers/CartProvider';
+import { useProducts } from '@/app/providers/ProductsProvider';
 
 export function HomePage() {
   const { t } = useTranslation();
   const { addItem } = useCartContext();
+  const { products } = useProducts();
 
   const handleAddToCart = (productId: string) => {
-    const product = mockProducts.find((p) => p.id === productId);
+    const product = products.find((p) => p.id === productId);
     if (product) {
       addItem({
         productId: product.id,
@@ -54,7 +55,7 @@ export function HomePage() {
                   {t('home.productsTitle')}
                 </h2>
                 <ProductGrid
-                  products={mockProducts}
+                  products={products}
                   onAddToCart={handleAddToCart}
                 />
               </section>
