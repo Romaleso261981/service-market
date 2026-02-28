@@ -3,12 +3,14 @@
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { mainCategories } from '@/shared/config/categories';
+import { useLocalePath } from '@/app/providers/LocaleProvider';
 
 const sitePhone = '0 (800) 752 110';
 const sitePhones = ['(067) 468 33 55', '(093) 468 33 55', '(050) 468 33 55'];
 
 export function Footer() {
   const { t } = useTranslation();
+  const localePath = useLocalePath();
 
   return (
     <footer className="border-t border-gray-200 bg-gray-50">
@@ -42,7 +44,7 @@ export function Footer() {
               {mainCategories.slice(0, 8).map((cat) => (
                 <li key={cat.id}>
                   <Link
-                    href={cat.href}
+                    href={localePath(cat.href)}
                     className="text-sm text-gray-600 hover:text-primary"
                   >
                     {t(`catalog.categories.${cat.id}`)}
@@ -55,20 +57,20 @@ export function Footer() {
             <h3 className="font-semibold text-gray-900">{t('footer.help')}</h3>
             <ul className="mt-2 space-y-1 text-sm text-gray-600">
               <li>
-                <Link href="/delivery" className="hover:text-primary">{t('footer.delivery')}</Link>
+                <Link href={localePath('/delivery')} className="hover:text-primary">{t('footer.delivery')}</Link>
               </li>
               <li>
-                <Link href="/returns" className="hover:text-primary">{t('footer.returns')}</Link>
+                <Link href={localePath('/returns')} className="hover:text-primary">{t('footer.returns')}</Link>
               </li>
               <li>
-                <Link href="/tracking" className="hover:text-primary">{t('footer.tracking')}</Link>
+                <Link href={localePath('/tracking')} className="hover:text-primary">{t('footer.tracking')}</Link>
               </li>
             </ul>
           </div>
         </div>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-x-4 border-t border-gray-200 pt-6 text-center text-sm text-gray-500">
           <span>{t('footer.copyright', { year: new Date().getFullYear(), name: t('site.name') })}</span>
-          <Link href="/admin" className="text-gray-400 hover:text-primary">
+          <Link href={localePath('/admin')} className="text-gray-400 hover:text-primary">
             Адмін
           </Link>
         </div>

@@ -3,9 +3,11 @@
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { mainCategories } from '@/shared/config/categories';
+import { useLocalePath } from '@/app/providers/LocaleProvider';
 
 export function CatalogNav() {
   const { t } = useTranslation();
+  const localePath = useLocalePath();
 
   return (
     <nav className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
@@ -14,7 +16,7 @@ export function CatalogNav() {
         {mainCategories.map((cat) => (
           <li key={cat.id}>
             <Link
-              href={cat.href}
+              href={localePath(cat.href)}
               className="block rounded-lg px-3 py-2 text-sm text-gray-700 transition-colors hover:bg-primary-light hover:text-primary"
             >
               {t(`catalog.categories.${cat.id}`)}

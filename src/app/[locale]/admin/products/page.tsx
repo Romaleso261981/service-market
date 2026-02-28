@@ -3,8 +3,10 @@
 import Link from 'next/link';
 import { useProducts } from '@/app/providers/ProductsProvider';
 import { Button } from '@/shared/ui';
+import { useLocalePath } from '@/app/providers/LocaleProvider';
 
 export default function AdminProductsPage() {
+  const localePath = useLocalePath();
   const { products, loading, error, deleteProduct } = useProducts();
 
   const handleDelete = async (id: string, name: string) => {
@@ -21,7 +23,7 @@ export default function AdminProductsPage() {
     <div>
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900">Товари</h1>
-        <Link href="/admin/products/new">
+        <Link href={localePath('/admin/products/new')}>
           <Button variant="primary">+ Додати товар</Button>
         </Link>
       </div>
@@ -73,7 +75,7 @@ export default function AdminProductsPage() {
                 </td>
                 <td className="whitespace-nowrap px-4 py-3 text-right text-sm">
                   <Link
-                    href={`/admin/products/${p.id}/edit`}
+                    href={localePath(`/admin/products/${p.id}/edit`)}
                     className="mr-2 text-primary hover:underline"
                   >
                     Редагувати

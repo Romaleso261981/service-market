@@ -4,9 +4,11 @@ import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { HeaderWithCart } from '@/widgets/Header';
 import { Footer } from '@/widgets/Footer';
+import { useLocalePath } from '@/app/providers/LocaleProvider';
 
 export default function RetailLoginPage() {
   const { t } = useTranslation();
+  const localePath = useLocalePath();
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -15,7 +17,7 @@ export default function RetailLoginPage() {
         <div className="mx-auto max-w-md text-center">
           <h1 className="text-2xl font-bold text-gray-900">{t('authPages.retailTitle')}</h1>
           <p className="mt-2 text-gray-600">{t('authPages.retailNote')}</p>
-          <Link href="/" className="mt-4 inline-block text-primary hover:underline">
+          <Link href={localePath('/')} className="mt-4 inline-block text-primary hover:underline">
             {t('authPages.backHome')}
           </Link>
         </div>

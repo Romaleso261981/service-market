@@ -6,6 +6,7 @@ import { CatalogSearch } from '@/features/search-catalog';
 import { AuthDropdown } from '@/features/auth-dropdown';
 import { LanguageSwitcher } from '@/features/language-switcher';
 import { Button } from '@/shared/ui';
+import { useLocalePath } from '@/app/providers/LocaleProvider';
 
 export interface HeaderProps {
   cartCount?: number;
@@ -13,6 +14,7 @@ export interface HeaderProps {
 
 export function Header({ cartCount = 0 }: HeaderProps) {
   const { t } = useTranslation();
+  const localePath = useLocalePath();
 
   return (
     <header className="sticky top-0 z-50 border-b border-header-dark bg-header shadow-sm">
@@ -20,7 +22,7 @@ export function Header({ cartCount = 0 }: HeaderProps) {
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-3">
             <Link
-              href="/"
+              href={localePath('/')}
               className="text-xl font-bold text-white hover:text-white/90"
             >
               {t('site.name')}
@@ -32,7 +34,7 @@ export function Header({ cartCount = 0 }: HeaderProps) {
           <div className="flex items-center gap-2">
           <LanguageSwitcher variant="dark" />
             <AuthDropdown variant="dark" />
-            <Link href="/cart" className="relative">
+            <Link href={localePath('/cart')} className="relative">
               <Button variant="darkHeader">
                 {t('header.cart')}
                 {cartCount > 0 && (

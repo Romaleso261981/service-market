@@ -1,23 +1,26 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/shared/lib/cn';
-import {
-  localeLabels,
-  supportedLngs,
-  getStoredLanguage,
-  setStoredLanguage,
-  type Locale,
-} from '@/shared/lib/i18n';
+import { useLocale } from '@/app/providers/LocaleProvider';
+import { URL_LOCALES, type UrlLocale } from '@/shared/config/locale-url';
+
+const URL_LOCALE_LABELS: Record<UrlLocale, string> = {
+  ua: 'UA',
+  ru: 'RU',
+};
 
 export interface LanguageSwitcherProps {
-  /** Use for dark header: white text + white chevron */
   variant?: 'default' | 'dark';
 }
 
 export function LanguageSwitcher({ variant = 'default' }: LanguageSwitcherProps) {
   const { t, i18n } = useTranslation();
+  const pathname = usePathname();
+  const router = useRouter();
+  const currentUrlLocale = useLocale();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -31,12 +34,12 @@ export function LanguageSwitcher({ variant = 'default' }: LanguageSwitcherProps)
     return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
-  const currentLng = (i18n.language || getStoredLanguage()) as Locale;
-  const otherLngs = supportedLngs.filter((l) => l !== currentLng);
+  const otherLocales = URL_LOCALES.filter((l) => l !== currentUrlLocale);
 
-  const handleSelect = (lng: Locale) => {
-    i18n.changeLanguage(lng);
-    setStoredLanguage(lng);
+  const handleSelect = (urlLocale: UrlLocale) => {
+    const base = pathname ?? '';
+    const newPath = base.replace(/^\/[^/]+/, `/${urlLocale}`) || `/${urlLocale}`;
+    router.push(newPath);
     setOpen(false);
   };
 
@@ -58,7 +61,7 @@ export function LanguageSwitcher({ variant = 'default' }: LanguageSwitcherProps)
         aria-haspopup="listbox"
         aria-label={t('languageSwitcher.ariaLabel')}
       >
-        <span>{localeLabels[currentLng]}</span>
+        <span>{URL_LOCALE_LABELS[currentUrlLocale]}</span>
         <svg
           className={cn(
             'h-4 w-4 shrink-0 transition-transform',
@@ -79,14 +82,14 @@ export function LanguageSwitcher({ variant = 'default' }: LanguageSwitcherProps)
           className="absolute left-0 top-full z-50 mt-1 min-w-[80px] rounded-lg border border-gray-200 bg-white py-1 shadow-lg"
           role="listbox"
         >
-          {otherLngs.map((lng) => (
-            <li key={lng} role="option" aria-selected={false}>
+          {otherLocales.map((urlLocale) => (
+            <li key={urlLocale} role="option" aria-selected={false}>
               <button
                 type="button"
-                onClick={() => handleSelect(lng)}
+                onClick={() => handleSelect(urlLocale)}
                 className="w-full px-4 py-2.5 text-left text-sm font-medium text-gray-900 transition-colors hover:bg-gray-50"
               >
-                {localeLabels[lng]}
+                {URL_LOCALE_LABELS[urlLocale]}
               </button>
             </li>
           ))}

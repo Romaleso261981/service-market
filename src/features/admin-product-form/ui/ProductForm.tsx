@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Button, Input } from '@/shared/ui';
 import type { Product } from '@/entities/product';
 import { mainCategories } from '@/shared/config/categories';
+import { useLocalePath } from '@/app/providers/LocaleProvider';
 
 export type ProductSubmitData = Omit<ProductFormData, 'characteristicsText' | 'description' | 'categoryId'> & {
   description?: string;
@@ -77,6 +78,7 @@ export function ProductForm({
   submitLabel,
 }: ProductFormProps) {
   const router = useRouter();
+  const localePath = useLocalePath();
   const [data, setData] = useState<ProductFormData>(
     initial
       ? {
@@ -113,7 +115,7 @@ export function ProductForm({
       characteristics: Object.keys(characteristics).length > 0 ? characteristics : undefined,
     };
     await Promise.resolve(onSubmit(payload));
-    router.push('/admin/products');
+    router.push(localePath('/admin/products'));
   };
 
   const update = (field: keyof ProductFormData, value: string | number | boolean) => {
@@ -264,7 +266,7 @@ export function ProductForm({
         </Button>
         <button
           type="button"
-          onClick={() => router.push('/admin/products')}
+          onClick={() => router.push(localePath('/admin/products'))}
           className="rounded-lg border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50"
         >
           Скасувати

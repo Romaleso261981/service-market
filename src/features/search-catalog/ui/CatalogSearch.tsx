@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/shared/lib/cn';
 import { Input } from '@/shared/ui';
+import { useLocalePath } from '@/app/providers/LocaleProvider';
 
 export interface CatalogSearchProps {
   defaultValue?: string;
@@ -20,13 +21,14 @@ export function CatalogSearch({
   variant = 'default',
 }: CatalogSearchProps) {
   const { t } = useTranslation();
+  const localePath = useLocalePath();
   const [query, setQuery] = useState(defaultValue);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSearch?.(query);
     if (query.trim()) {
-      window.location.href = `/shop/search?text=${encodeURIComponent(query.trim())}`;
+      window.location.href = localePath(`/shop/search?text=${encodeURIComponent(query.trim())}`);
     }
   };
 

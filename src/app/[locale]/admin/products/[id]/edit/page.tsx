@@ -5,10 +5,12 @@ import { useParams } from 'next/navigation';
 import { useProducts } from '@/app/providers/ProductsProvider';
 import { ProductForm } from '@/features/admin-product-form';
 import type { ProductSubmitData } from '@/features/admin-product-form';
+import { useLocalePath } from '@/app/providers/LocaleProvider';
 
 export default function EditProductPage() {
   const params = useParams();
   const id = typeof params?.id === 'string' ? params.id : '';
+  const localePath = useLocalePath();
   const { getProductById, updateProduct } = useProducts();
   const product = id ? getProductById(id) : undefined;
 
@@ -22,7 +24,7 @@ export default function EditProductPage() {
           Товар з таким ID не існує або був видалений.
         </p>
         <Link
-          href="/admin/products"
+          href={localePath('/admin/products')}
           className="inline-block text-primary hover:underline"
         >
           ← Повернутися до списку товарів

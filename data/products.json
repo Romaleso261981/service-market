@@ -7,7 +7,9 @@
     "price": 345,
     "currency": "грн",
     "inStock": false,
-    "deliveryDays": "Срок поставки 10-15 дней"
+    "deliveryDays": "Срок поставки 10-15 дней",
+    "categoryId": "home-body",
+    "image": "https://www.service-market.com.ua/storage/products/cbe0e9cb-3fda-11ed-916c-d4c47728c110/600x600/4885813a1b7a2150dab96d0a0efdb0f8_photo_0.webp"
   },
   {
     "id": "2",
@@ -23,7 +25,9 @@
       "Бренд": "Dyson",
       "Цвет": "серебристый",
       "Тип": "труба всасывания"
-    }
+    },
+    "categoryId": "big",
+    "image": "https://www.service-market.com.ua/storage/products/5fd08d13-4095-11ec-9166-bd898ab255dd/600x600/aeb989756451bfd9dd0f4f41f84f3faa_photo_0.webp"
   },
   {
     "id": "3",
@@ -32,7 +36,9 @@
     "slug": "pompa-electrolux-24946",
     "price": 1250,
     "currency": "грн",
-    "inStock": true
+    "inStock": true,
+    "categoryId": "home-body",
+    "image": "https://www.service-market.com.ua/storage/products/4a63a25b-e330-11e8-9113-896dc2c56c26/600x600/8da1c750cd75c9f01cb3022e9e6fa5ff_photo_0.webp"
   },
   {
     "id": "4",
@@ -41,7 +47,9 @@
     "slug": "mufta-zelmer-861203",
     "price": 156,
     "currency": "грн",
-    "inStock": true
+    "inStock": true,
+    "categoryId": "kitchen",
+    "image": "https://www.service-market.com.ua/storage/products/9436c33a-1129-11e2-a9db-c018851d671c/600x600/e0c7de6e85bb0d928d756a14793ead36_photo_0.webp"
   },
   {
     "id": "5",
@@ -50,7 +58,10 @@
     "slug": "obramlenie-beko-40218",
     "price": 420,
     "currency": "грн",
-    "inStock": true
+    "inStock": true,
+    "categoryId": "kitchen",
+    "image": "https://www.service-market.com.ua/storage/products/44ce2c77-f929-11eb-9151-9791a365ee10/600x600/c7b4b4e02a4d488cbc996a61a34f1c83_photo_0.webp",
+    "description": "Обрамление переднее стеклянной полки 4657600100 для холодильника Beko."
   },
   {
     "id": "6",
@@ -59,6 +70,13 @@
     "slug": "slyuda-whirlpool-42150",
     "price": 280,
     "currency": "грн",
-    "inStock": true
+    "inStock": true,
+    "categoryId": "kitchen",
+    "image": "https://www.service-market.com.ua/storage/products/dd9aa96c-4431-11ea-9129-ee8ee76ad1e3/600x600/f1b095250d432409139f176487dd5de2_photo_0.webp",
+    "description": "Набор слюды для микроволновки (микроволновой печи, СВЧ-печи).",
+    "characteristics": {
+      "Размеры": "10х25см.",
+      "Количество в наборе": "10шт."
+    }
   }
 ]

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/shared/ui';
+import { useLocalePath } from '@/app/providers/LocaleProvider';
 import type { ProductCardData } from '../../model/types';
 
 export interface ProductCardProps {
@@ -13,11 +14,12 @@ export interface ProductCardProps {
 
 export function ProductCard({ product, onAddToCart }: ProductCardProps) {
   const { t } = useTranslation();
+  const localePath = useLocalePath();
   const { id, code, name, slug, price, currency, image, inStock, deliveryDays } = product;
 
   return (
     <article className="flex flex-col rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
-      <Link href={`/products/${slug}`} className="flex flex-1 flex-col">
+      <Link href={localePath(`/products/${slug}`)} className="flex flex-1 flex-col">
         {image ? (
           <div className="relative aspect-square overflow-hidden rounded-lg bg-gray-100">
             <Image

@@ -10,10 +10,12 @@ import { Button } from '@/shared/ui';
 import { ProductCharacteristics } from '@/entities/product';
 import { useProducts } from '@/app/providers/ProductsProvider';
 import { useCartContext } from '@/app/providers/CartProvider';
+import { useLocalePath } from '@/app/providers/LocaleProvider';
 
 export default function ProductPage() {
   const params = useParams();
   const slug = typeof params?.slug === 'string' ? params.slug : '';
+  const localePath = useLocalePath();
   const { t } = useTranslation();
   const { products } = useProducts();
   const { addItem } = useCartContext();
@@ -26,7 +28,7 @@ export default function ProductPage() {
         <HeaderWithCart />
         <main className="flex-1 px-4 py-12 text-center">
           <p className="text-gray-500">Товар не знайдено.</p>
-          <Link href="/" className="mt-4 inline-block text-primary hover:underline">
+          <Link href={localePath('/')} className="mt-4 inline-block text-primary hover:underline">
             На головну
           </Link>
         </main>
@@ -50,7 +52,7 @@ export default function ProductPage() {
       <HeaderWithCart />
       <main className="flex-1 px-4 py-6 sm:px-6">
         <div className="mx-auto max-w-4xl">
-          <Link href="/" className="mb-4 inline-block text-sm text-gray-500 hover:text-primary">
+          <Link href={localePath('/')} className="mb-4 inline-block text-sm text-gray-500 hover:text-primary">
             ← На головну
           </Link>
           <div className="grid gap-8 md:grid-cols-2">

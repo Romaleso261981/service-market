@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/shared/lib/cn';
+import { useLocalePath } from '@/app/providers/LocaleProvider';
 
 const authLinkKeys = [
   { href: '/auth/retail', key: 'auth.loginRetail' as const },
@@ -30,6 +31,7 @@ export interface AuthDropdownProps {
 
 export function AuthDropdown({ variant = 'default' }: AuthDropdownProps) {
   const { t } = useTranslation();
+  const localePath = useLocalePath();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const isDark = variant === 'dark';
@@ -77,7 +79,7 @@ export function AuthDropdown({ variant = 'default' }: AuthDropdownProps) {
             <div key={item.href}>
               {i > 0 && <hr className="my-1 border-gray-100" />}
               <Link
-                href={item.href}
+                href={localePath(item.href)}
                 className="flex items-center gap-3 px-4 py-2.5 text-gray-900 no-underline transition-colors hover:bg-gray-50"
                 role="menuitem"
                 onClick={() => setOpen(false)}
