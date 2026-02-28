@@ -9,6 +9,9 @@
     "searchPlaceholder": "Например, Bosch 00657428 или Samsung WF0702WKQ",
     "find": "Найти"
   },
+  "languageSwitcher": {
+    "ariaLabel": "Выберите язык"
+  },
   "auth": {
     "loginRetail": "Вход розница",
     "loginWholesale": "Вход ОПТ",

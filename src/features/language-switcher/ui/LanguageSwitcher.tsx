@@ -12,7 +12,7 @@ import {
 } from '@/shared/lib/i18n';
 
 export function LanguageSwitcher() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -46,7 +46,7 @@ export function LanguageSwitcher() {
         )}
         aria-expanded={open}
         aria-haspopup="listbox"
-        aria-label="Оберіть мову"
+        aria-label={t('languageSwitcher.ariaLabel')}
       >
         <span>{localeLabels[currentLng]}</span>
         <svg
