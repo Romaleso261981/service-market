@@ -3,8 +3,13 @@ import {
   getProductById,
   updateProduct,
   deleteProduct,
+  READONLY_FS_CODE,
 } from '@/server/products-storage';
 import type { Product } from '@/entities/product';
+
+function isReadOnlyFs(err: unknown): err is Error & { code: string } {
+  return err instanceof Error && (err as Error & { code?: string }).code === READONLY_FS_CODE;
+}
 
 type RouteParams = { params: Promise<{ id: string }> };
 
@@ -42,6 +47,9 @@ export async function PUT(
     return NextResponse.json(product);
   } catch (err) {
     console.error('PUT /api/products/[id]', err);
+    if (isReadOnlyFs(err)) {
+      return NextResponse.json({ error: err.message }, { status: 503 });
+    }
     return NextResponse.json(
       { error: 'Failed to update product' },
       { status: 500 }
@@ -62,6 +70,9 @@ export async function DELETE(
     return new NextResponse(null, { status: 204 });
   } catch (err) {
     console.error('DELETE /api/products/[id]', err);
+    if (isReadOnlyFs(err)) {
+      return NextResponse.json({ error: err.message }, { status: 503 });
+    }
     return NextResponse.json(
       { error: 'Failed to delete product' },
       { status: 500 }

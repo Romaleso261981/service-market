@@ -27,7 +27,10 @@ export async function createProduct(
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   });
-  if (!res.ok) throw new Error('Failed to create product');
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error((body as { error?: string }).error ?? 'Failed to create product');
+  }
   return res.json();
 }
 
@@ -41,7 +44,10 @@ export async function updateProduct(
     body: JSON.stringify(data),
   });
   if (res.status === 404) throw new Error('Product not found');
-  if (!res.ok) throw new Error('Failed to update product');
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error((body as { error?: string }).error ?? 'Failed to update product');
+  }
   return res.json();
 }
 
@@ -50,5 +56,8 @@ export async function deleteProduct(id: string): Promise<void> {
     method: 'DELETE',
   });
   if (res.status === 404) throw new Error('Product not found');
-  if (!res.ok) throw new Error('Failed to delete product');
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error((body as { error?: string }).error ?? 'Failed to delete product');
+  }
 }
