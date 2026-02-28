@@ -37,6 +37,7 @@ export default function EditProductPage() {
         code: data.code,
         name: data.name,
         slug: data.slug,
+        categoryId: data.categoryId || undefined,
         price: data.price,
         currency: data.currency,
         inStock: data.inStock,

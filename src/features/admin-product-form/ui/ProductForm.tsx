@@ -4,10 +4,12 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Input } from '@/shared/ui';
 import type { Product } from '@/entities/product';
+import { mainCategories } from '@/shared/config/categories';
 
-export type ProductSubmitData = Omit<ProductFormData, 'characteristicsText' | 'description'> & {
+export type ProductSubmitData = Omit<ProductFormData, 'characteristicsText' | 'description' | 'categoryId'> & {
   description?: string;
   characteristics?: Record<string, string>;
+  categoryId?: string;
 };
 
 export interface ProductFormProps {
@@ -20,6 +22,7 @@ export interface ProductFormData {
   code: string;
   name: string;
   slug: string;
+  categoryId: string;
   price: number;
   currency: string;
   inStock: boolean;
@@ -34,6 +37,7 @@ const defaultData: ProductFormData = {
   code: '',
   name: '',
   slug: '',
+  categoryId: '',
   price: 0,
   currency: 'грн',
   inStock: true,
@@ -80,6 +84,7 @@ export function ProductForm({
           code: initial.code,
           name: initial.name,
           slug: initial.slug,
+          categoryId: initial.categoryId ?? '',
           price: initial.price,
           currency: initial.currency,
           inStock: initial.inStock,
@@ -98,6 +103,7 @@ export function ProductForm({
       code: data.code,
       name: data.name,
       slug: data.slug,
+      categoryId: data.categoryId || undefined,
       price: data.price,
       currency: data.currency,
       inStock: data.inStock,
@@ -151,6 +157,23 @@ export function ProductForm({
           onChange={(e) => update('slug', e.target.value)}
           required
         />
+      </div>
+      <div>
+        <label className="mb-1 block text-sm font-medium text-gray-700">
+          Каталог (категорія)
+        </label>
+        <select
+          value={data.categoryId}
+          onChange={(e) => update('categoryId', e.target.value)}
+          className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+        >
+          <option value="">— не обрано —</option>
+          {mainCategories.map((cat) => (
+            <option key={cat.id} value={cat.id}>
+              {cat.name}
+            </option>
+          ))}
+        </select>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
