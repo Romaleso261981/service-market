@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { CatalogSearch } from '@/features/search-catalog';
+import { AuthDropdown } from '@/features/auth-dropdown';
 import { siteConfig } from '@/shared/config/site';
 import { Button } from '@/shared/ui';
 
@@ -24,9 +25,7 @@ export function Header({ cartCount = 0 }: HeaderProps) {
             <CatalogSearch />
           </div>
           <div className="flex items-center gap-2">
-            <Link href="/auth">
-              <Button variant="ghost">Вход</Button>
-            </Link>
+            <AuthDropdown />
             <Link href="/cart" className="relative">
               <Button variant="outline">
                 Корзина
