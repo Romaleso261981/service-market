@@ -48,6 +48,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
         disabled={!inStock}
         onClick={(e) => {
           e.preventDefault();
+          e.stopPropagation();
           onAddToCart?.(id);
         }}
       >
