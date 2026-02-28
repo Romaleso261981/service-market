@@ -2,12 +2,12 @@
 
 import { useProducts } from '@/app/providers/ProductsProvider';
 import { ProductForm } from '@/features/admin-product-form';
-import type { ProductFormData } from '@/features/admin-product-form';
+import type { ProductSubmitData } from '@/features/admin-product-form';
 
 export default function NewProductPage() {
   const { addProduct } = useProducts();
 
-  const handleSubmit = (data: ProductFormData) => {
+  const handleSubmit = (data: ProductSubmitData) => {
     addProduct({
       code: data.code,
       name: data.name,
@@ -17,6 +17,8 @@ export default function NewProductPage() {
       inStock: data.inStock,
       deliveryDays: data.deliveryDays || undefined,
       image: data.image || undefined,
+      description: data.description,
+      characteristics: data.characteristics,
     });
   };
 

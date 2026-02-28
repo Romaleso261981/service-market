@@ -1,19 +1,37 @@
 'use client';
 
-import { useParams, notFound } from 'next/navigation';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { useProducts } from '@/app/providers/ProductsProvider';
 import { ProductForm } from '@/features/admin-product-form';
-import type { ProductFormData } from '@/features/admin-product-form';
+import type { ProductSubmitData } from '@/features/admin-product-form';
 
 export default function EditProductPage() {
   const params = useParams();
-  const id = (params?.id as string) ?? '';
+  const id = typeof params?.id === 'string' ? params.id : '';
   const { getProductById, updateProduct } = useProducts();
-  const product = getProductById(id);
+  const product = id ? getProductById(id) : undefined;
 
-  if (!product) notFound();
+  if (!id || !product) {
+    return (
+      <div className="rounded-xl border border-gray-200 bg-white p-8 shadow-sm">
+        <h1 className="mb-2 text-xl font-bold text-gray-900">
+          Товар не знайдено
+        </h1>
+        <p className="mb-4 text-gray-600">
+          Товар з таким ID не існує або був видалений.
+        </p>
+        <Link
+          href="/admin/products"
+          className="inline-block text-primary hover:underline"
+        >
+          ← Повернутися до списку товарів
+        </Link>
+      </div>
+    );
+  }
 
-  const handleSubmit = (data: ProductFormData) => {
+  const handleSubmit = (data: ProductSubmitData) => {
     updateProduct(id, {
       code: data.code,
       name: data.name,
@@ -23,6 +41,8 @@ export default function EditProductPage() {
       inStock: data.inStock,
       deliveryDays: data.deliveryDays || undefined,
       image: data.image || undefined,
+      description: data.description,
+      characteristics: data.characteristics,
     });
   };
 

@@ -10,9 +10,24 @@ export interface Product {
   deliveryDays?: string;
   brand?: string;
   categoryId?: string;
+  /** Текстовий опис товару */
+  description?: string;
+  /** Характеристики: ключ — назва (наприклад "Производитель"), значення — "Bosch" */
+  characteristics?: Record<string, string>;
 }
 
 export type ProductCardData = Pick<
   Product,
-  'id' | 'code' | 'name' | 'slug' | 'price' | 'currency' | 'image' | 'inStock' | 'deliveryDays'
+  | 'id'
+  | 'code'
+  | 'name'
+  | 'slug'
+  | 'price'
+  | 'currency'
+  | 'image'
+  | 'inStock'
+  | 'deliveryDays'
+  | 'description'
+  | 'characteristics'
+  | 'brand'
 >;

@@ -20,6 +20,14 @@ export const mockProducts: ProductCardData[] = [
     price: 890,
     currency: 'грн',
     inStock: true,
+    description:
+      'Труба металлическая для аккумуляторного пылесоса Dyson 965663-05.\nОригинальная запчасть.',
+    characteristics: {
+      'Производитель': 'Dyson',
+      'Бренд': 'Dyson',
+      'Цвет': 'серебристый',
+      'Тип': 'труба всасывания',
+    },
   },
   {
     id: '3',
