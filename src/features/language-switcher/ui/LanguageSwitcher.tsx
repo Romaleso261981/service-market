@@ -11,7 +11,12 @@ import {
   type Locale,
 } from '@/shared/lib/i18n';
 
-export function LanguageSwitcher() {
+export interface LanguageSwitcherProps {
+  /** Use for dark header: white text + white chevron */
+  variant?: 'default' | 'dark';
+}
+
+export function LanguageSwitcher({ variant = 'default' }: LanguageSwitcherProps) {
   const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -35,14 +40,19 @@ export function LanguageSwitcher() {
     setOpen(false);
   };
 
+  const isDark = variant === 'dark';
+
   return (
     <div className="relative" ref={ref}>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         className={cn(
-          'flex items-center gap-1 rounded-lg px-2 py-1.5 font-medium text-primary transition-colors hover:bg-primary-light/50',
-          open && 'bg-primary-light/50'
+          'flex items-center gap-1 rounded-lg px-2 py-1.5 font-medium transition-colors',
+          isDark
+            ? 'text-white hover:bg-white/10'
+            : 'text-primary hover:bg-primary-light/50',
+          open && (isDark ? 'bg-white/10' : 'bg-primary-light/50')
         )}
         aria-expanded={open}
         aria-haspopup="listbox"
@@ -50,7 +60,11 @@ export function LanguageSwitcher() {
       >
         <span>{localeLabels[currentLng]}</span>
         <svg
-          className={cn('h-4 w-4 text-primary transition-transform', open && 'rotate-180')}
+          className={cn(
+            'h-4 w-4 shrink-0 transition-transform',
+            isDark ? 'text-white' : 'text-primary',
+            open && 'rotate-180'
+          )}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

@@ -17,6 +17,10 @@ module.exports = {
           light: '#fff5ef',
         },
         accent: '#198754',
+        header: {
+          DEFAULT: '#4c1d95',
+          dark: '#3b0764',
+        },
       },
     },
   },

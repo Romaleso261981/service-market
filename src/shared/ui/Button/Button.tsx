@@ -2,7 +2,7 @@
 
 import { cn } from '@/shared/lib/cn';
 
-type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost';
+type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'darkHeader';
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -16,6 +16,7 @@ const variantStyles: Record<ButtonVariant, string> = {
   secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300',
   outline: 'border-2 border-primary text-primary hover:bg-primary-light',
   ghost: 'text-gray-700 hover:bg-gray-100',
+  darkHeader: 'border border-white/80 text-white hover:bg-white/10',
 };
 
 export function Button({
