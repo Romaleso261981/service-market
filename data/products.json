@@ -113,5 +113,20 @@
       "https://www.service-market.com.ua/storage/products/fea8b141-e136-11ee-9181-80871382a8b2/600x600/2c87cd812e140a2adbd449835884d1a7_photo_2.webp",
       "https://www.service-market.com.ua/storage/products/fea8b141-e136-11ee-9181-80871382a8b2/600x600/2c87cd812e140a2adbd449835884d1a7_photo_1.webp"
     ]
+  },
+  {
+    "code": "112233",
+    "name": "Заправочный клапан Шредера с трубкой 6x0.55x80mm AVX",
+    "slug": "-----6x055x80mm-avx",
+    "categoryId": "kitchen",
+    "price": 95,
+    "currency": "грн",
+    "inStock": true,
+    "image": "https://www.service-market.com.ua/storage/products/db17c2a3-8fd4-11ec-9168-c74d8f2f3b60/600x600/23980cf140edb3a85251c15fce314ff0_photo_0.webp",
+    "images": [
+      "https://www.service-market.com.ua/storage/products/db17c2a3-8fd4-11ec-9168-c74d8f2f3b60/600x600/23980cf140edb3a85251c15fce314ff0_photo_0.webp"
+    ],
+    "description": "Заправочный клапан Шредера с трубкой AVX.",
+    "id": "1772317958325"
   }
 ]

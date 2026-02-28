@@ -1,14 +1,6 @@
 import { NextResponse } from 'next/server';
-import {
-  getAllProducts,
-  createProduct,
-  READONLY_FS_CODE,
-} from '@/server/products-storage';
+import { getAllProducts, createProduct } from '@/server/products-storage';
 import type { Product } from '@/entities/product';
-
-function isReadOnlyFs(err: unknown): err is Error & { code: string } {
-  return err instanceof Error && (err as Error & { code?: string }).code === READONLY_FS_CODE;
-}
 
 export async function GET() {
   try {
@@ -30,11 +22,8 @@ export async function POST(request: Request) {
     return NextResponse.json(product, { status: 201 });
   } catch (err) {
     console.error('POST /api/products', err);
-    if (isReadOnlyFs(err)) {
-      return NextResponse.json({ error: err.message }, { status: 503 });
-    }
     return NextResponse.json(
-      { error: 'Failed to create product' },
+      { error: err instanceof Error ? err.message : 'Failed to create product' },
       { status: 500 }
     );
   }
