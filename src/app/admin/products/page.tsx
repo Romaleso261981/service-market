@@ -1,17 +1,19 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useProducts } from '@/app/providers/ProductsProvider';
 import { Button } from '@/shared/ui';
 
 export default function AdminProductsPage() {
-  const router = useRouter();
-  const { products, deleteProduct } = useProducts();
+  const { products, loading, error, deleteProduct } = useProducts();
 
-  const handleDelete = (id: string, name: string) => {
+  const handleDelete = async (id: string, name: string) => {
     if (typeof window !== 'undefined' && window.confirm(`Видалити «${name}»?`)) {
-      deleteProduct(id);
+      try {
+        await deleteProduct(id);
+      } catch (err) {
+        alert(err instanceof Error ? err.message : 'Не вдалося видалити');
+      }
     }
   };
 
@@ -23,6 +25,12 @@ export default function AdminProductsPage() {
           <Button variant="primary">+ Додати товар</Button>
         </Link>
       </div>
+      {error && (
+        <p className="mb-4 text-sm text-red-600">{error}</p>
+      )}
+      {loading ? (
+        <p className="py-8 text-center text-gray-500">Завантаження...</p>
+      ) : (
       <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
@@ -83,6 +91,7 @@ export default function AdminProductsPage() {
           </tbody>
         </table>
       </div>
+      )}
     </div>
   );
 }

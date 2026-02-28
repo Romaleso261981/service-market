@@ -13,7 +13,7 @@ import { useProducts } from '@/app/providers/ProductsProvider';
 export function HomePage() {
   const { t } = useTranslation();
   const { addItem } = useCartContext();
-  const { products } = useProducts();
+  const { products, loading, error } = useProducts();
 
   const handleAddToCart = (productId: string) => {
     const product = products.find((p) => p.id === productId);
@@ -54,10 +54,17 @@ export function HomePage() {
                 <h2 className="mb-4 text-xl font-semibold text-gray-900">
                   {t('home.productsTitle')}
                 </h2>
-                <ProductGrid
-                  products={products}
-                  onAddToCart={handleAddToCart}
-                />
+                {error && (
+                  <p className="mb-4 text-sm text-red-600">{error}</p>
+                )}
+                {loading ? (
+                  <p className="py-8 text-center text-gray-500">Завантаження...</p>
+                ) : (
+                  <ProductGrid
+                    products={products}
+                    onAddToCart={handleAddToCart}
+                  />
+                )}
               </section>
             </div>
           </div>

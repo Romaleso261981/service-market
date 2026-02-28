@@ -91,7 +91,7 @@ export function ProductForm({
       : defaultData
   );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const characteristics = parseCharacteristics(data.characteristicsText);
     const payload: ProductSubmitData = {
@@ -106,7 +106,7 @@ export function ProductForm({
       description: data.description || undefined,
       characteristics: Object.keys(characteristics).length > 0 ? characteristics : undefined,
     };
-    onSubmit(payload);
+    await Promise.resolve(onSubmit(payload));
     router.push('/admin/products');
   };
 

@@ -31,19 +31,24 @@ export default function EditProductPage() {
     );
   }
 
-  const handleSubmit = (data: ProductSubmitData) => {
-    updateProduct(id, {
-      code: data.code,
-      name: data.name,
-      slug: data.slug,
-      price: data.price,
-      currency: data.currency,
-      inStock: data.inStock,
-      deliveryDays: data.deliveryDays || undefined,
-      image: data.image || undefined,
-      description: data.description,
-      characteristics: data.characteristics,
-    });
+  const handleSubmit = async (data: ProductSubmitData) => {
+    try {
+      await updateProduct(id, {
+        code: data.code,
+        name: data.name,
+        slug: data.slug,
+        price: data.price,
+        currency: data.currency,
+        inStock: data.inStock,
+        deliveryDays: data.deliveryDays || undefined,
+        image: data.image || undefined,
+        description: data.description,
+        characteristics: data.characteristics,
+      });
+    } catch (err) {
+      alert(err instanceof Error ? err.message : 'Не вдалося зберегти');
+      throw err;
+    }
   };
 
   return (
