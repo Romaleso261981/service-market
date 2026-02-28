@@ -33,9 +33,11 @@ export function HomePage() {
           <div className="grid gap-8 lg:grid-cols-[240px_1fr]">
             <aside className="space-y-6">
               <CatalogNav />
-              <PartFinder />
             </aside>
             <div className="space-y-8">
+              <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                <PartFinder />
+              </section>
               <section>
                 <h1 className="mb-4 text-2xl font-bold text-gray-900">
                   «Сервис-Маркет» — новая жизнь вашей техники
